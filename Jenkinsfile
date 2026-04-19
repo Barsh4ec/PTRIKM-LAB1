@@ -13,6 +13,7 @@ pipeline {
                 echo 'Lab_2: started by GitHub'
             }
         }
+        
 
         stage('Image build') {
             steps {
@@ -25,7 +26,7 @@ pipeline {
 
         stage('Push to registry') {
             steps {
-                withDockerRegistry([ credentialsId: "ID_облікових даних", url: "" ]) {
+                withDockerRegistry([ credentialsId: "docker-hub-id", url: "" ]) {
                     sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:latest"
                     sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:${BUILD_NUMBER}"
                 }
