@@ -2,31 +2,44 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "nginx/custom:latest"
+        DOCKER_USER = "barsh4ec"
+        IMAGE_NAME = "prikm"
         CONTAINER_NAME = "nginx-lab-container"
     }
 
     stages {
         stage('Start') {
             steps {
-                echo "Start: ${IMAGE_NAME}"
-                sh 'ls -la'
+                echo 'Lab_2: started by GitHub'
             }
         }
 
-        stage('Build Image') {
+        stage('Image build') {
             steps {
-                sh "docker build -t ${IMAGE_NAME} ."
+                sh "docker build -t ${IMAGE_NAME}:latest ."
+                
+                sh "docker tag ${IMAGE_NAME}:latest ${DOCKER_USER}/${IMAGE_NAME}:latest"
+                sh "docker tag ${IMAGE_NAME}:latest ${DOCKER_USER}/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
 
-        stage('Cleanup & Deploy') {
+        stage('Push to registry') {
+            steps {
+                withDockerRegistry([ credentialsId: "ID_облікових даних", url: "" ]) {
+                    sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:latest"
+                    sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:${BUILD_NUMBER}"
+                }
+            }
+        }
+
+        stage('Deploy image') {
             steps {
                 sh "docker stop ${CONTAINER_NAME} || true"
                 sh "docker rm ${CONTAINER_NAME} || true"
+
+                sh "docker run -d --name ${CONTAINER_NAME} -p 80:80 ${DOCKER_USER}/${IMAGE_NAME}:latest"
                 
-                sh "docker run -d --name ${CONTAINER_NAME} -p 80:80 ${IMAGE_NAME}"
-                echo "App is available on port 80"
+                echo "Додаток розгорнуто з Docker Hub і доступний на порту 80"
             }
         }
     }
