@@ -7,6 +7,19 @@ pipeline {
         CONTAINER_NAME = "nginx-lab-container"
     }
 
+    properties([
+        office365ConnectorWebhooks([
+            webhook(
+                name: 'Teams-O365',
+                url: 'https://lpnu.webhook.office.com/webhookb2/8be437d8-8e8d-43aa-b131-6dd94f08c2f1@7631cd62-5187-4e15-8b8e-ef653e366e7a/IncomingWebhook/f01431ff220d4e96869be6a89d23bbb6/e04f73d4-2c03-4fad-80f5-976648d68832/V2s8Zm_qDAFxOQCe87mPGCT4PrIqVI9LuYYwtiztrQoN41',
+                notifySuccess: true,
+                notifyFailure: true,
+                notifyUnstable: true,
+                notifyBackToNormal: true
+            )
+        ])
+    ])
+
     stages {
         stage('Start') {
             steps {
