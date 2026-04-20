@@ -7,6 +7,11 @@ pipeline {
         CONTAINER_NAME = "nginx-lab-container"
     }
 
+    parameters {
+            string(name: 'VERSION', defaultValue: '1.0', description: 'app version')
+            choice(name: 'ENVIRONMENT', choices: ['Dev', 'Prod'], description: 'deploy environment')
+        }
+
     properties([
         office365ConnectorWebhooks([
             webhook(
@@ -19,6 +24,14 @@ pipeline {
             )
         ])
     ])
+    
+    stages {
+            stage('Example') {
+                steps {
+                    echo "Deploying version ${params.VERSION} to ${params.ENVIRONMENT}"
+                }
+            }
+        }
 
     stages {
         stage('Start') {
