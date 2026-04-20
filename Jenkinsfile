@@ -12,7 +12,7 @@ pipeline {
             choice(name: 'ENVIRONMENT', choices: ['Dev', 'Prod'], description: 'deploy environment')
         }
 
-    options([
+    options {
         office365ConnectorWebhooks([
             webhook(
                 name: 'Teams-O365',
@@ -23,7 +23,7 @@ pipeline {
                 notifyBackToNormal: true
             )
         ])
-    ])
+    }
 
 
     stages {
