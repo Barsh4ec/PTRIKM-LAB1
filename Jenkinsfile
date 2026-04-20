@@ -32,6 +32,7 @@ pipeline {
                 echo 'Lab_3: testing of logging, custom plugins'
                 echo "Deploying version ${params.VERSION} to ${params.ENVIRONMENT}"
             }
+        }
         
 
         stage('Image build') {
