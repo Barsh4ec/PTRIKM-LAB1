@@ -12,7 +12,7 @@ pipeline {
             choice(name: 'ENVIRONMENT', choices: ['Dev', 'Prod'], description: 'deploy environment')
         }
 
-    properties([
+    options([
         office365ConnectorWebhooks([
             webhook(
                 name: 'Teams-O365',
@@ -24,21 +24,14 @@ pipeline {
             )
         ])
     ])
-    
-    stages {
-            stage('Example') {
-                steps {
-                    echo "Deploying version ${params.VERSION} to ${params.ENVIRONMENT}"
-                }
-            }
-        }
+
 
     stages {
         stage('Start') {
             steps {
-                echo 'Lab_2: started by GitHub'
+                echo 'Lab_3: testing of logging, custom plugins'
+                echo "Deploying version ${params.VERSION} to ${params.ENVIRONMENT}"
             }
-        }
         
 
         stage('Image build') {
