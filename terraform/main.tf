@@ -15,7 +15,7 @@ resource "docker_image" "ubuntu_ssh" {
 
 resource "docker_container" "app_server" {
   name  = "web-app-local"
-  image = docker_image.node_base.image_id
+  image = docker_image.ubuntu_ssh.image_id
   
   volumes {
     host_path      = "/var/run/docker.sock"
@@ -40,7 +40,7 @@ resource "docker_container" "app_server" {
 
 resource "docker_container" "monitor_node" {
   name  = "monitor_node"
-  image = docker_image.node_base.image_id
+  image = docker_image.ubuntu_ssh.image_id
 
   volumes {
     host_path      = "/var/run/docker.sock"
