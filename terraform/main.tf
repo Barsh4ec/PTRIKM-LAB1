@@ -26,11 +26,6 @@ resource "docker_container" "app_server" {
     internal = 80
     external = 8082
   } # App
-  
-  ports {
-    internal = 9100
-    external = 9100
-  } # Node Exporter
 
   ports {
   internal = 22
