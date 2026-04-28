@@ -28,8 +28,7 @@ pipeline {
                 }
             }
         }
-    }
-
+    
     post {
         failure {
             echo "error detected!"
