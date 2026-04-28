@@ -20,9 +20,11 @@ pipeline {
             steps {
                 script {
                     def serverIp = readFile('server_ip.txt').trim()
+                    sh "echo '[web_servers]\n${serverIp} ansible_connection=docker ansible_user=root' > dynamic_inventory.ini"
+                    
                     ansiblePlaybook(
                         playbook: 'playbook.yml',
-                        inventory: "${serverIp} ansible_connection=docker,",
+                        inventory: 'dynamic_inventory.ini',
                         installation: 'ansible',
                         colorized: true
                     )
