@@ -1,0 +1,36 @@
+- name: Configure App Node
+  hosts: app_node
+  tasks:
+    - name: Run App Container
+      community.docker.docker_container:
+        name: my-app
+        image: nginx:latest
+        state: started
+        ports: ["80:80"]
+    - name: Run Node Exporter
+      community.docker.docker_container:
+        name: node-exporter
+        image: prom/node-exporter:latest
+        state: started
+        ports: ["9100:9100"]
+
+- name: Configure Monitor Node
+  hosts: monitor_node
+  tasks:
+    - name: Upload Prometheus Config
+      template:
+        src: templates/prometheus.yml.j2
+        dest: /tmp/prometheus.yml
+    - name: Run Prometheus
+      community.docker.docker_container:
+        name: prometheus
+        image: prom/prometheus:latest
+        state: started
+        volumes: ["/tmp/prometheus.yml:/etc/prometheus/prometheus.yml"]
+        ports: ["9090:9090"]
+    - name: Run Grafana
+      community.docker.docker_container:
+        name: grafana
+        image: grafana/grafana:latest
+        state: started
+        ports: ["3000:3000"]
