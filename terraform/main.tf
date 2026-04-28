@@ -41,15 +41,6 @@ resource "docker_container" "monitor_node" {
     host_path      = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"
   }
-  ports { 
-    internal = 9090
-    external = 9090
-  } # Prometheus
-
-  ports {
-    internal = 3000
-    external = 3000
-  } # Grafana
 
   ports {
   internal = 22
