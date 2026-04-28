@@ -1,6 +1,12 @@
 - name: Configure App Node
   hosts: app_node
   tasks:
+    - name: Remove old node-exporter if exists
+      docker_container:
+        name: node-exporter
+        state: absent
+        ignore_errors: yes
+
     - name: Run App Container
       community.docker.docker_container:
         name: my-app
