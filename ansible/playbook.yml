@@ -21,6 +21,7 @@
       template:
         src: templates/prometheus.yml.j2
         dest: /tmp/prometheus.yml
+      delegate_to: localhost
     - name: Upload Prometheus Config
       template:
         src: templates/prometheus.yml.j2
