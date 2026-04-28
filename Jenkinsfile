@@ -22,7 +22,7 @@ pipeline {
                     def serverIp = readFile('server_ip.txt').trim()
                     ansiblePlaybook(
                         playbook: 'playbook.yml',
-                        inventory: "${serverIp},",
+                        inventory: "${serverIp} ansible_connection=docker,",
                         installation: 'ansible',
                         colorized: true
                     )
