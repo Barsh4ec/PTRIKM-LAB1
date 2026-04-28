@@ -46,7 +46,9 @@ pipeline {
     post {
         failure {
             echo "error detected!"
-            sh "${TF_HOME}/terraform destroy -auto-approve"
+            dir('terraform') {
+                sh "${TF_HOME}/terraform destroy -auto-approve"
+            }
         }
         always {
             cleanWs()
