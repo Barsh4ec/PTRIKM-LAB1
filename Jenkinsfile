@@ -38,7 +38,7 @@ pipeline {
 
         stage('Smoke Test') {
             steps {
-                sh "curl -f http://localhost:8082" // Перевірка застосунку
+                sh "curl -f http://localhost:9090" // Перевірка застосунку
                 sh "curl -f http://localhost:3000" // Перевірка Grafana
             }
         }
