@@ -1,0 +1,5 @@
+cvs
+docker-plugin
+git
+prometheus
+workflow-aggregator
