@@ -28,8 +28,8 @@ resource "docker_container" "app_server" {
   } # App
 
   ports {
-  internal = 22
-  external = 2223
+    internal = 22
+    external = 2223
   } # SSH communication port
 }
 
