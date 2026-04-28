@@ -13,9 +13,17 @@ resource "docker_image" "ubuntu_ssh" {
   name = "rastasheep/ubuntu-sshd"
 }
 
+resource "docker_network" "lab8_net" {
+  name = "lab8-network"
+}
+
 resource "docker_container" "app_server" {
   name  = "web-app-local"
   image = docker_image.ubuntu_ssh.image_id
+
+  networks_advanced {
+    name = docker_network.lab8_net.name
+  }
   
   volumes {
     host_path      = "/var/run/docker.sock"
@@ -36,6 +44,9 @@ resource "docker_container" "app_server" {
 resource "docker_container" "monitor_node" {
   name  = "monitor_node"
   image = docker_image.ubuntu_ssh.image_id
+  networks_advanced {
+    name = docker_network.lab8_net.name
+  }
 
   volumes {
     host_path      = "/var/run/docker.sock"

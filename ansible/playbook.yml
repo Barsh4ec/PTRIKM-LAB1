@@ -26,6 +26,8 @@
       community.docker.docker_container:
         name: prometheus
         image: prom/prometheus:latest
+        networks:
+        - name: "lab8-network"
         state: started
         volumes: ["/tmp/prometheus.yml:/etc/prometheus/prometheus.yml"]
         ports: ["9090:9090"]
@@ -33,5 +35,7 @@
       community.docker.docker_container:
         name: grafana
         image: grafana/grafana:latest
+        networks:
+        - name: "lab8-network"
         state: started
         ports: ["3000:3000"]
