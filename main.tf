@@ -28,21 +28,6 @@ resource "docker_container" "app_server" {
   }
 }
 
-resource "docker_container" "app_server2" {
-  name  = "web-app-local2"
-  image = docker_image.ubuntu_ssh.image_id
-  
-  volumes {
-    host_path      = "/var/run/docker.sock"
-    container_path = "/var/run/docker.sock"
-  }
-
-  ports {
-    internal = 80
-    external = 8083
-  }
-}
-
 output "server_ip" {
   value = "web-app-local"
 }

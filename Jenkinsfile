@@ -23,6 +23,7 @@ pipeline {
                     ansiblePlaybook(
                         playbook: 'playbook.yml',
                         inventory: "${serverIp},",
+                        installation: 'ansible',
                         colorized: true
                     )
                 }
