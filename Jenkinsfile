@@ -4,7 +4,7 @@ pipeline {
         TF_HOME = tool 'terraform'
     }
     stages {
-        stage('Checkout')
+        stage('Checkout') {
             steps {
                 checkout scm
             }
@@ -28,7 +28,8 @@ pipeline {
                 }
             }
         }
-    
+    }
+
     post {
         failure {
             echo "error detected!"
