@@ -3,3 +3,5 @@ docker-plugin
 git
 prometheus
 workflow-aggregator
+terraform
+ansible

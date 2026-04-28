@@ -44,5 +44,5 @@ resource "docker_container" "app_server2" {
 }
 
 output "server_ip" {
-  value = docker_container.app_server.name
+  value = "web-app-local"
 }
