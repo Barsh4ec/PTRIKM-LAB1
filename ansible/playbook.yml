@@ -16,7 +16,7 @@
 
 - name: Configure Monitor Node
   hosts: monitor_node
-  tasks:
+  tasks:  
     - name: Generate Prometheus Config on Jenkins Host
       template:
         src: templates/prometheus.yml.j2
@@ -39,3 +39,5 @@
         - name: "lab8-network"
         state: started
         ports: ["3000:3000"]
+        env:
+          GF_SECURITY_ADMIN_PASSWORD: "admin"
