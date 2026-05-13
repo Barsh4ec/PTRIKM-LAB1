@@ -58,3 +58,4 @@ resource "docker_container" "monitor_node" {
   external = 2224
   } # SSH communication port
 }
+//test
